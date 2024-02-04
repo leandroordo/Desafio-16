@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contactos</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <div class="title">
+        <h1>Contactos</h1>
+        <a href="#" id="buttonNew" class="contact__button info">Nuevo</a>
+      </div>
+      <div id="contactList" class="contact__list"></div>
+      <div id="newContactForm" class="overlay hidden">
+        <div class="dialog">
+          <h2>Nuevo contacto</h2>
+          <form>
+            <div>
+              <div class="form__line">
+                <label class="form__line-label">Nombre</label>
+                <input
+                  id="name"
+                  class="form__line-input"
+                  type="text"
+                  required
+                />
+              </div>
+
+              <div class="form__line">
+                <label class="form__line-label">Email</label>
+                <input
+                  id="email"
+                  class="form__line-input"
+                  type="email"
+                  required
+                />
+              </div>
+
+              <div class="form__line">
+                <label class="form__line-label">Fecha Nacimiento</label>
+                <input
+                  id="birthdate"
+                  class="form__line-input"
+                  type="text"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form__line-bottom">
+              <a href="#" id="buttonOk" class="contact__button ok">Aceptar</a>
+              <a href="#" class="contact__button danger">Cancelar</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script src="./js/index.js"></script>
+  </body>
+</html>
