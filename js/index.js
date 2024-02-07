@@ -123,7 +123,7 @@ function showEditContactForm(contactToEdit) {
   currentContactId = contactToEdit.id;
   document.getElementById("name").value = contactToEdit.name;
   document.getElementById("email").value = contactToEdit.email;
-  document.getElementById("birthdate").value = toLocalDateFormat(
+  document.getElementById("birthdate").valueAsDate = toDate(
     contactToEdit.birthdate
   );
 
@@ -180,60 +180,21 @@ function validateIsValidEmail(value) {
 }
 
 function validateIsValidBirthDate(value) {
-  // Solo acepto día, mes año (en ese orden) y con "/" o "-" como separador
-  // Día y mes pueden tener un cero adelante
-  // El año puede ser de dos o cuatro cifras.
-  // Si es de dos cifras, va del 00 al 99, pero si es de cuatro, va del 1900 al 2999
-  var re =
-    /^(0?[1-9]|[12][0-9]|3[01])(\/|-)(0?[1-9]|1[0-2])\2(((00|[0-9][0-9])|((19|2[0-9])[0-9]{2})))$/;
-
-  if (!re.test(value)) {
+  var fechaNacimiento = new Date(value);
+  if (fechaNacimiento == null) {
     return false;
   }
 
-  var date = toDate(value);
-  if (date == null) {
-    return false;
-  }
-
-  //La fecha tiene que ser menor o igual que hoy
+  //La fecha tiene que ser menor o igual que hoy y mayor a 1/1/1900
   var hoy = new Date();
   hoy.setHours(0, 0, 0, 0);
-  return date < hoy;
+
+  var min = new Date(1900, 1, 1);
+  return fechaNacimiento < hoy && fechaNacimiento > min;
 }
 
 function toDate(value) {
-  // Parsear las partes de la fecha
-  var parts = value.split(/[-/]/);
-  var day = parseInt(parts[0], 10);
-  var month = parseInt(parts[1], 10) - 1; // JavaScript cuenta los meses de 0 a 11
-  var year = parseInt(parts[2], 10);
-
-  var century = 0;
-
-  if (year < 99) {
-    //Tomar el año como dos dígitos
-    const today = new Date();
-
-    const todaysTwoDigitYear = today.getFullYear() % 100;
-    const todaysCentury = Math.floor(
-      (today.getFullYear() - todaysTwoDigitYear) / 100
-    );
-
-    year < todaysTwoDigitYear
-      ? (century = todaysCentury)
-      : (century = todaysCentury - 1);
-  }
-
-  const testDate = new Date(century * 100 + year, month, day);
-
-  // Ver si testDate es una fecha válida
-  if (
-    !(testDate && testDate.getMonth() === month && testDate.getDate() === day)
-  ) {
-    return null;
-  }
-  return testDate;
+  return new Date(value);
 }
 
 function toLocalDateFormat(dateString) {
