@@ -198,15 +198,12 @@ function toDate(value) {
 }
 
 function toLocalDateFormat(dateString) {
-  const offset = new Date().getTimezoneOffset() * 60 * 1000;
-  const date = new Date(Date.parse(dateString) + offset);
+  const date = new Date(Date.parse(dateString));
 
   if (!isNaN(date)) {
-    return [
-      format2Digits(date.getDate()),
-      format2Digits(date.getMonth() + 1),
-      date.getFullYear(),
-    ].join("/");
+    const dateParts = dateString.split("T")[0].split("-");
+    const birthDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+    return birthDate.toLocaleDateString();
   }
 }
 
