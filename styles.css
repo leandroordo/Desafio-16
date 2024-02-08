@@ -184,7 +184,8 @@ form {
 
 .form__line-input {
   flex-grow: 1;
-  line-height: 1.2rem;
+  line-height: 1.3rem;
+  padding: 0.1rem;
 }
 
 .form__line-bottom {

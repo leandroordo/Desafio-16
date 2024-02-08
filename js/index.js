@@ -198,7 +198,8 @@ function toDate(value) {
 }
 
 function toLocalDateFormat(dateString) {
-  const date = new Date(dateString);
+  const offset = new Date().getTimezoneOffset() * 60 * 1000;
+  const date = new Date(Date.parse(dateString) + offset);
 
   if (!isNaN(date)) {
     return [
